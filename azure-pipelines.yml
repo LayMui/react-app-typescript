@@ -43,6 +43,7 @@ stages:
             - checkout: react-app-test-automation
             - script: |
                   npm install
+                  npm run postinstall
                   npm test
               workingDirectory: $(Build.SourcesDirectory)/react-app-test-automation
               displayName: 'npm install and my end to end automation test in chrome in qa'
@@ -77,12 +78,6 @@ stages:
                   scriptType: 'pscore'
                   scriptLocation: 'inlineScript'
                   inlineScript: 'az webapp delete -n react-app-todo -g demo'
-
-              - task: DownloadPipelineArtifact@2
-                inputs:
-                    buildType: 'current'
-                    artifactName: 'test-source-folder'
-                    targetPath: '$(Pipeline.Workspace)'
               
               - task: AzureCLI@2
                 inputs:
